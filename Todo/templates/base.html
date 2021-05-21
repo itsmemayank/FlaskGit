@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: monospace;
+        }
+        hr {border-style: dotted none none none;
+            width: 35%;
+            border-color: rgba(128, 128, 128, 0.2);
+            border-width: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="margin-top: 50px;" class="ui container">
+        <div class="alert alert-info d-block mb-10 text-right" role="alert">
+            <marquee behavior="alternate"><h2>Welcome!</h2></marquee>
+        </div>
+        <div class="alert alert-primary d-block mb-10 text-center" role="alert">
+            So, What to do?...Write your task that you will do today.
+        </div>
+        <form class="ui form" action="/add" method="post">
+            <div class="field">
+                <strong>Todo Title</strong>
+                <input type="text" name="title" placeholder="Enter Todo..." autocomplete="off"   required><br>
+            </div>
+            <button class="ui blue button" type="submit" style="margin-bottom: 10px;">Add</button>
+        </form>
+
+        <hr>
+
+        {% for todo in todo_list %}
+        <div class="ui segment">
+            <p class="ui big header">{{ todo.id }} : {{ todo.title }}</p>
+
+            {% if todo.complete == False %}
+            <span class="ui gray label">Pending</span>
+            {% else %}
+            <span class="ui green label">Completed</span>
+            {% endif %}
+
+            <a class="ui blue button" href="/update/{{ todo.id }}">Update</a>
+            <a class="ui red button" href="/delete/{{ todo.id }}">Delete</a>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+
+</html>
